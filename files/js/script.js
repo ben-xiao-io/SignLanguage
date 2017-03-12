@@ -118,7 +118,7 @@ Leap.loop(controllerOptions, function(frame)
             if(pinkyToThumb <= 60 && ringToThumb <= 60 && middleToThumb <= 60 && indexToThumb <= 60)
             {
             	console.log("Please");
-            	
+
             	post("Please");
             }
 
@@ -222,11 +222,13 @@ function post(message)
 	if(message == "-1")
 	{
 		wordArray = [];
+		message = null;
 		previousWord = null;
 		$("#output-array").html(null);
 		$("#output-text").html(null);
 		return;
 	}
+	outputSpeach(message);
 	document.getElementById("output-text").innerHTML = message;
 	previousWord = message;
 }
@@ -242,51 +244,57 @@ function post(message)
 
 
 
+$(function() 
+{
+    if ('speechSynthesis' in window) 
+    {
+        speechSynthesis.onvoiceschanged = function() 
+        {
+            var $voicelist = $('#voices');
 
+            if ($voicelist.find('option').length == 0) 
+            {
+                speechSynthesis.getVoices().forEach(function(voice, index) 
+                {
+                    console.log(voice);
+                    var $option = $('<option>')
+                        .val(index)
+                        .html(voice.name + (voice.default ? ' (default)' : ''));
 
+                    $voicelist.append($option);
+                });
 
+                $voicelist.material_select();
+            }
+        }
 
-$(function(){
-  if ('speechSynthesis' in window) {
-    speechSynthesis.onvoiceschanged = function() {
-      var $voicelist = $('#voices');
-
-      if($voicelist.find('option').length == 0) {
-        speechSynthesis.getVoices().forEach(function(voice, index) {
-          console.log(voice);
-          var $option = $('<option>')
-          .val(index)
-          .html(voice.name + (voice.default ? ' (default)' :''));
-
-          $voicelist.append($option);
-        });
-
-        $voicelist.material_select();
-      }
+        $('#speak').click(function() 
+        {
+            outputSpeach();
+        })
+    } else 
+    {
+        $('#modal1').openModal();
     }
-
-    $('#speak').click(function(){
-      var text = $('#output-array').text();
-      var msg = new SpeechSynthesisUtterance();
-      var voices = window.speechSynthesis.getVoices();
-      msg.voice = voices[$('#voices').val()];
-      msg.rate = $('#rate').val() / 10;
-      msg.pitch = $('#pitch').val();
-      msg.text = text;
-
-      msg.onend = function(e) {
-        console.log('Finished in ' + event.elapsedTime + ' seconds.');
-      };
-
-      console.log(speechSynthesis);
-
-      speechSynthesis.speak(msg);
-    })
-  } else {
-    $('#modal1').openModal();
-  }
 });
 
 
+function outputSpeach(message)
+{
+	var text = message;
+            var msg = new SpeechSynthesisUtterance();
+            var voices = window.speechSynthesis.getVoices();
+            msg.voice = voices[$('#voices').val()];
+            msg.rate = $('#rate').val() / 10;
+            msg.pitch = $('#pitch').val();
+            msg.text = text;
 
+            msg.onend = function(e) 
+            {
+                console.log('Finished in ' + event.elapsedTime + ' seconds.');
+            };
 
+            console.log(speechSynthesis);
+
+            speechSynthesis.speak(msg);
+}
