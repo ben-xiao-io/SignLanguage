@@ -1,0 +1,94 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Leap Motion JavaScript Sample</title>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+		 <!-- Compiled and minified CSS -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+
+		<!-- Compiled and minified JavaScript -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+		      
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+		<link rel="stylesheet" href="files/css/global.css">
+
+		<script src="http://js.leapmotion.com/leap-0.6.3.min.js"></script>
+		<script src="files/js/script.js"></script>
+
+		<script type="text/javascript">
+			$(document).ready(function()
+			{
+				setInterval(function(){
+					var newColor = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
+					$("#output-array").animate({'color': newColor}, 2000);
+				}, 500);
+
+			});
+		</script>
+	</head>
+	<body>
+		<section>
+			<div class="title jumbotron">
+				<h1 style="text-align: center;">Sign Language Translator</h1>
+			</div>
+			<div class="output">
+				<h2 style="text-align: center;">Translated word:</h2>
+				<h3 style="text-align: center;" id="output-text"></h3>
+				<h3 style="text-align: center;" id="output-array"></h3>
+			</div>
+		</section>
+
+	<hr style="color:black;">
+	
+		<div class="container">
+			<form class="col s8 offset-s2">
+				<div class="row">
+					<label>Choose voice</label>
+				<select id="voices"></select>
+			</div>
+			<div class="row">
+				<div class="col s6">
+					<label>Rate</label>
+					<p class="range-field">
+						<input type="range" id="rate" min="1" max="100" value="10" />
+					</p>
+				</div>
+				<div class="col s6">
+					<label>Pitch</label>
+					<p class="range-field">
+						<input type="range" id="pitch" min="0" max="2" value="1" />
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<textarea id="message" class="materialize-textarea"></textarea>
+					<label>Write message</label>
+				</div>
+			</div>
+			<a href="#" id="speak" class="waves-effect waves-light btn">Speak</a>
+		</form>
+		</div>
+		<div id="modal1" class="modal">
+		<h4>Speech Synthesis not supported</h4>
+		<p>Your browser does not support speech synthesis.</p>
+		<p>We recommend you use Google Chrome.</p>
+		<div class="action-bar">
+			<a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Close</a>
+		</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,22 @@
+@font-face {
+	font-family: Adam;
+	src : url('../adam.otf');
+}
+body{
+	background-color: #DDFEE4;
+}
+h1 {
+	font-family: Adam;
+	font-size: 70px;
+}
+.jumbotron {
+	background-color: #196B69;
+	color: #28CC9E;
+}
+h2{
+	color: #132F2B;
+}
+hr {
+	border-top: 1px solid #000;
+	width: 400px;
+}
